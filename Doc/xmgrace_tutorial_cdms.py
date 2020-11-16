@@ -3,7 +3,7 @@
 
 # it is recomended to run it usibng parser.py or just read it
 
-print 'it is recomended to run this file using parser.py or just read it'
+print('it is recomended to run this file using parser.py or just read it')
 
 # ******************************************************************************
 #
@@ -18,12 +18,12 @@ if len(sys.argv) > 2:
 elif len(sys.argv) > 1:
     TESTDIR = sys.argv[1] + '/'
 if not os.path.isdir(TESTDIR):
-    print 'Cannot find the tutorials data directory, please pass path as first argument.'
-    print 'e.g.: python getting_started.py ../cdat_tutorial_data'
+    print('Cannot find the tutorials data directory, please pass path as first argument.')
+    print('e.g.: python getting_started.py ../cdat_tutorial_data')
     sys.exit()
 if not os.path.exists(TESTDIR + 'model.ctl'):
-    print 'Cannot find the tutorials data, please pass path as first argument.'
-    print 'e.g.: python getting_started.py ../cdat_tutorial_data'
+    print('Cannot find the tutorials data, please pass path as first argument.')
+    print('e.g.: python getting_started.py ../cdat_tutorial_data')
     sys.exit()
 
 TEMPDIR = './'

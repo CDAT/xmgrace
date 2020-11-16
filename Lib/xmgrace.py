@@ -57,17 +57,15 @@ import signal
 ## Things to do/add
 __doc__ files, and __str__
 """
-import ValidationFunctions
+from . import ValidationFunctions
 import time
 from genutil import colors
 import atexit
 
 
 class FONT(object):
-    __slots___ = ['name', '_name']
-
     def __init__(self, name):
-        self.name = name
+        self._name = name
         return
 
     def _getname(self):
@@ -79,12 +77,10 @@ class FONT(object):
 
 
 class COLOR(object):
-    __slots__ = ['name', 'rgb', 'id', '_name', '_rgb', '_id']
-
     def __init__(self, name='Black', rgb=None, id=16):
-        self.name = name
+        self._name = name
         if rgb is None:
-            self.rgb = self.__conv_color(self.name)
+            self.rgb = self.__conv_color(self._name)
         else:
             self.rgb = rgb
         if id < 16:
@@ -99,9 +95,9 @@ class COLOR(object):
 
     def list(self):
         """list the attributes"""
-        print 'id =', self.id
-        print 'name =', self.name
-        print 'rgb =', self.rgb
+        print('id =', self.id)
+        print('name =', self.name)
+        print('rgb =', self.rgb)
 
     def __conv_color(self, col):
         ret = colors.str2rgb(col)
@@ -149,21 +145,16 @@ class REGION(object):
 
     def list(self):
         """list the attributes"""
-        print 'status =', self.status
-        print 'type =', self.type
-        print 'linestyle =', self.linestyle
-        print 'linewidth =', self.linewidth
-        print 'color =', self.color
-        print 'link =', self.link
+        print('status =', self.status)
+        print('type =', self.type)
+        print('linestyle =', self.linestyle)
+        print('linewidth =', self.linewidth)
+        print('color =', self.color)
+        print('link =', self.link)
         if self.xy is not None:
-            print 'xy =', self.xy
+            print('xy =', self.xy)
         if self.line is not None:
-            print 'line =', self.line
-
-    __slots__ = ['status', 'type', 'linestyle', 'linewidth',
-                 'color', 'xy', 'line', 'link', 'parent',
-                 '_status', '_type', '_linestyle',
-                 '_linewidth', '_color', '_xy', '_line', '_link']
+            print('line =', self.line)
 
     def _getstatus(self):
         return self._status
@@ -257,15 +248,12 @@ class GRAPH(object):
                 self.format = 'general'
                 self.prec = 6
 
-            __slots__ = ['status', 'type', 'xy', 'format', 'prec',
-                         '_status', '_format', '_prec']
-
             def list(self):
-                print '\t status =', self.status
-                print '\t type =', self.type
-                print '\t xy =', self.xy
-                print '\t format', self.format
-                print '\t prec', self.prec
+                print('\t status =', self.status)
+                print('\t type =', self.type)
+                print('\t xy =', self.xy)
+                print('\t format', self.format)
+                print('\t prec', self.prec)
 
             def _getstatus(self):
                 return self._status
@@ -294,15 +282,6 @@ class GRAPH(object):
         self.fixedpoint = Fixedpoint()
 
         class Title(object):
-            __slots__ = [
-                'font',
-                'size',
-                'color',
-                'parent',
-                '_font',
-                '_size',
-                '_color']
-
             def __init__(self, parent, size):
                 self.parent = parent
                 self.font = parent.font
@@ -310,9 +289,9 @@ class GRAPH(object):
                 self.color = parent.color
 
             def list(self):
-                print '\t font =', self.font
-                print '\t size =', self.size
-                print '\t color =', self.color
+                print('\t font =', self.font)
+                print('\t size =', self.size)
+                print('\t color =', self.color)
 
             def _getfont(self):
                 return self._font
@@ -361,15 +340,10 @@ class GRAPH(object):
                         self.linewidth = parent.linewidth
 
                     def list(self):
-                        print '\t\t status =', self.status
-                        print '\t\t color =', self.color
-                        print '\t\t linestyle =', self.linestyle
-                        print '\t\t linewidth =', self.linewidth
-
-                    __slots__ = ['status', 'linestyle',
-                                 'linewidth', 'color', 'parent',
-                                 '_status', '_linestyle',
-                                 '_linewidth', '_color']
+                        print('\t\t status =', self.status)
+                        print('\t\t color =', self.color)
+                        print('\t\t linestyle =', self.linestyle)
+                        print('\t\t linewidth =', self.linewidth)
 
                     def _getcolor(self):
                         return self._color
@@ -422,9 +396,8 @@ class GRAPH(object):
                                 self.side = 'Normal'  # opposite, both
 
                             def list(self):
-                                print '\t\t\t loc =', self.loc
-                                print '\t\t\t side =', self.side
-                            __slots__ = ['loc', 'side', '_loc', '_side']
+                                print('\t\t\t loc =', self.loc)
+                                print('\t\t\t side =', self.side)
 
                             def _getloc(self):
                                 return self._loc
@@ -444,16 +417,12 @@ class GRAPH(object):
                         self.place = Place()
 
                     def list(self):
-                        print '\t\t layout =', self.layout
-                        print '\t\t char_size =', self.char_size
-                        print '\t\t font =', self.font
-                        print '\t\t color =', self.color
-                        print '\t\t member = place'
+                        print('\t\t layout =', self.layout)
+                        print('\t\t char_size =', self.char_size)
+                        print('\t\t font =', self.font)
+                        print('\t\t color =', self.color)
+                        print('\t\t member = place')
                         self.place.list()
-                    __slots__ = ['layout', 'char_size', 'font',
-                                 'color', 'place', 'parent',
-                                 '_layout', '_char_size',
-                                 '_font', '_color']
 
                     def _getlayout(self):
                         return self._layout
@@ -509,13 +478,9 @@ class GRAPH(object):
                                 self.type = 'both'
 
                             def list(self):
-                                print '\t\t\t loc = ', self.loc
-                                print '\t\t\t values =', self.values
-                                print '\t\t\t type =', self.type
-
-                            __slots__ = [
-                                'loc', 'values', 'type',
-                                '_loc', '_values', '_type']
+                                print('\t\t\t loc = ', self.loc)
+                                print('\t\t\t values =', self.values)
+                                print('\t\t\t type =', self.type)
 
                             def _getloc(self):
                                 return self._loc
@@ -554,16 +519,11 @@ class GRAPH(object):
                                 self.grid = 'off'
 
                             def list(self):
-                                print '\t\t\t size =', self.size
-                                print '\t\t\t color =', self.color
-                                print '\t\t\t linewidth =', self.linewidth
-                                print '\t\t\t linestyle =', self.linestyle
-                                print '\t\t\t grid =', self.grid
-
-                            __slots__ = ['size', 'color', 'linewidth',
-                                         'linestyle', 'grid', 'parent',
-                                         '_size', '_color', '_linewidth',
-                                         '_linestyle', '_grid']
+                                print('\t\t\t size =', self.size)
+                                print('\t\t\t color =', self.color)
+                                print('\t\t\t linewidth =', self.linewidth)
+                                print('\t\t\t linestyle =', self.linestyle)
+                                print('\t\t\t grid =', self.grid)
 
                             def _getcolor(self):
                                 return self._color
@@ -630,34 +590,21 @@ class GRAPH(object):
                                 self.color = parent.color
 
                             def list(self):
-                                print '\t\t\t status =', self.status
-                                print '\t\t\t prec =', self.prec
-                                print '\t\t\t format =', self.format
-                                print '\t\t\t append =', self.append
-                                print '\t\t\t prepend =', self.prepend
-                                print '\t\t\t angle =', self.angle
-                                print '\t\t\t skip =', self.skip
-                                print '\t\t\t stagger =', self.stagger
-                                print '\t\t\t place =', self.place
-                                print '\t\t\t offset =', self.offset
-                                print '\t\t\t start =', self.start
-                                print '\t\t\t stop =', self.stop
-                                print '\t\t\t char_size =', self.char_size
-                                print '\t\t\t font =', self.font
-                                print '\t\t\t color =', self.color
-
-                            __slots__ = ['status', 'prec', 'format', 'append',
-                                         'prepend', 'angle', 'skip', 'stagger',
-                                         'place', 'offset', 'start', 'stop',
-                                         'char_size', 'font',
-                                         'color', 'parent',
-                                         '_status', '_prec', '_format',
-                                         '_append', '_prepend',
-                                         '_angle', '_skip', '_stagger',
-                                         '_place', '_offset',
-                                         '_start', '_stop',
-                                         '_char_size', '_font',
-                                         '_color']
+                                print('\t\t\t status =', self.status)
+                                print('\t\t\t prec =', self.prec)
+                                print('\t\t\t format =', self.format)
+                                print('\t\t\t append =', self.append)
+                                print('\t\t\t prepend =', self.prepend)
+                                print('\t\t\t angle =', self.angle)
+                                print('\t\t\t skip =', self.skip)
+                                print('\t\t\t stagger =', self.stagger)
+                                print('\t\t\t place =', self.place)
+                                print('\t\t\t offset =', self.offset)
+                                print('\t\t\t start =', self.start)
+                                print('\t\t\t stop =', self.stop)
+                                print('\t\t\t char_size =', self.char_size)
+                                print('\t\t\t font =', self.font)
+                                print('\t\t\t color =', self.color)
 
                             def _getcolor(self):
                                 return self._color
@@ -788,31 +735,22 @@ class GRAPH(object):
                     # End of __init__
 
                     def list(self):
-                        print '\t\t status =', self.status
-                        print '\t\t inc =', self.inc
-                        print '\t\t nsub =', self.nsub
-                        print '\t\t minor_ticks =', self.minor_ticks
-                        print '\t\t place_rounded =', self.place_rounded
-                        print '\t\t orientation =', self.orientation
-                        print '\t\t place =', self.place
-                        print '\t\t member = spec'
+                        print('\t\t status =', self.status)
+                        print('\t\t inc =', self.inc)
+                        print('\t\t nsub =', self.nsub)
+                        print('\t\t minor_ticks =', self.minor_ticks)
+                        print('\t\t place_rounded =', self.place_rounded)
+                        print('\t\t orientation =', self.orientation)
+                        print('\t\t place =', self.place)
+                        print('\t\t member = spec')
                         self.spec.list()
-                        print '\t\t member = major'
+                        print('\t\t member = major')
                         self.major.list()
-                        print '\t\t member = minor'
+                        print('\t\t member = minor')
                         self.minor.list()
-                        print '\t\t member = label'
+                        print('\t\t member = label')
                         self.label.list()
-                        print '\t\t type =', self.type
-
-                    __slots__ = ['type', 'status', 'inc',
-                                 'nsub', 'minor_ticks',
-                                 'place_rounded',
-                                 'orientation', 'place', 'spec', 'major',
-                                 'minor', 'label',
-                                 '_type', '_status', '_inc', '_nsub',
-                                 '_minor_ticks', '_place_rounded',
-                                 '_orientation', '_place']
+                        print('\t\t type =', self.type)
 
                     def _gettype(self):
                         return self._type
@@ -885,25 +823,19 @@ class GRAPH(object):
             # end of __init__
 
             def list(self):
-                print '\t scale =', self.scale
-                print '\t invert =', self.invert
-                print '\t status =', self.status
-                print '\t zero =', self.zero
-                print '\t xoffset =', self.xoffset
-                print '\t yoffset =', self.yoffset
-                print '\t member = bar'
+                print('\t scale =', self.scale)
+                print('\t invert =', self.invert)
+                print('\t status =', self.status)
+                print('\t zero =', self.zero)
+                print('\t xoffset =', self.xoffset)
+                print('\t yoffset =', self.yoffset)
+                print('\t member = bar')
                 self.bar.list()
-                print '\t label =', self.label
-                print '\t member = lbl'
+                print('\t label =', self.label)
+                print('\t member = lbl')
                 self.lbl.list()
-                print '\t member = tick'
+                print('\t member = tick')
                 self.tick.list()
-            __slots__ = ['scale', 'invert', 'status', 'zero', 'xoffset',
-                         'yoffset', 'offset',
-                         'min', 'max', 'label', 'bar', 'lbl', 'tick', 'graph',
-                         '_scale', '_invert', '_status', '_zero',
-                         '_xoffset', '_yoffset',
-                         '_min', '_max', '_label', '_secretname']
 
             def _getscale(self):
                 return self._scale
@@ -1017,16 +949,12 @@ class GRAPH(object):
                         self.fpattern = parent.pattern
 
                     def list(self):
-                        print '\t\t color =', self.color
-                        print '\t\t pattern =', self.pattern
-                        print '\t\t linewidth =', self.linewidth
-                        print '\t\t linestyle =', self.linestyle
-                        print '\t\t fcolor =', self.fcolor
-                        print '\t\t fpattern =', self.fpattern
-                    __slots__ = ['color', 'pattern', 'linewidth', 'linestyle',
-                                 'fcolor', 'fpattern', 'parent',
-                                 '_color', '_pattern', '_linewidth',
-                                 '_linestyle', '_fcolor', '_fpattern']
+                        print('\t\t color =', self.color)
+                        print('\t\t pattern =', self.pattern)
+                        print('\t\t linewidth =', self.linewidth)
+                        print('\t\t linestyle =', self.linestyle)
+                        print('\t\t fcolor =', self.fcolor)
+                        print('\t\t fpattern =', self.fpattern)
 
                     def _getcolor(self):
                         return self._color
@@ -1086,25 +1014,19 @@ class GRAPH(object):
                 self.invert = 'false'
 
             def list(self):
-                print '\t status =', self.status
-                print '\t loctype =', self.loctype
-                print '\t x =', self.x
-                print '\t y =', self.y
-                print '\t member = box'
+                print('\t status =', self.status)
+                print('\t loctype =', self.loctype)
+                print('\t x =', self.x)
+                print('\t y =', self.y)
+                print('\t member = box')
                 self.box.list()
-                print '\t font =', self.font
-                print '\t char_size =', self.char_size
-                print '\t color =', self.color
-                print '\t length =', self.length
-                print '\t vgap =', self.vgap
-                print '\t hgap =', self.vgap
-                print '\t invert =', self.vgap
-            __slots__ = ['status', 'loctype', 'x', 'y', 'font',
-                         'char_size', 'color',
-                         'length', 'vgap', 'hgap', 'invert', 'box', 'parent',
-                         '_status', '_loctype', '_x', '_y',
-                         '_font', '_char_size', '_color',
-                         '_length', '_vgap', '_hgap', '_invert']
+                print('\t font =', self.font)
+                print('\t char_size =', self.char_size)
+                print('\t color =', self.color)
+                print('\t length =', self.length)
+                print('\t vgap =', self.vgap)
+                print('\t hgap =', self.vgap)
+                print('\t invert =', self.vgap)
 
             def _getstatus(self):
                 return self._status
@@ -1205,18 +1127,13 @@ class GRAPH(object):
                 self.background_pattern = 0
 
             def list(self):
-                print '\t type =', self.type
-                print '\t color =', self.color
-                print '\t pattern =', self.pattern
-                print '\t linewidth =', self.linewidth
-                print '\t linestyle =', self.linestyle
-                print '\t background_color =', self.background_color
-                print '\t background_pattern =', self.background_pattern
-            __slots__ = ['type', 'color', 'pattern', 'linewidth', 'linestyle',
-                         'background_color', 'background_pattern', 'parent',
-                         '_type', '_color', '_pattern',
-                         '_linewidth', '_linestyle',
-                         '_background_color', '_background_pattern']
+                print('\t type =', self.type)
+                print('\t color =', self.color)
+                print('\t pattern =', self.pattern)
+                print('\t linewidth =', self.linewidth)
+                print('\t linestyle =', self.linestyle)
+                print('\t background_color =', self.background_color)
+                print('\t background_pattern =', self.background_pattern)
 
             def _gettype(self):
                 return self._type
@@ -1279,51 +1196,41 @@ class GRAPH(object):
     # end of __init__
 
     def list(self):
-        print 'xmin =', self.xmin
-        print 'xmax =', self.xmax
-        print 'ymin =', self.ymin
-        print 'ymax =', self.ymax
-        print 'vxmin =', self.vxmin
-        print 'vxmax =', self.vxmax
-        print 'vymin =', self.vymin
-        print 'vymax =', self.vymax
-        print 'status =', self.status
-        print 'hidden =', self.hidden
-        print 'type = ', self.type
-        print 'stacked = ', self.stacked
-        print 'stack_world =', self.stack_world
-        print 'bar_hgap =', self.bar_hgap
-        print 'znorm =', self.znorm
-        print 'title =', self.title
-        print 'member = tit'
+        print('xmin =', self.xmin)
+        print('xmax =', self.xmax)
+        print('ymin =', self.ymin)
+        print('ymax =', self.ymax)
+        print('vxmin =', self.vxmin)
+        print('vxmax =', self.vxmax)
+        print('vymin =', self.vymin)
+        print('vymax =', self.vymax)
+        print('status =', self.status)
+        print('hidden =', self.hidden)
+        print('type = ', self.type)
+        print('stacked = ', self.stacked)
+        print('stack_world =', self.stack_world)
+        print('bar_hgap =', self.bar_hgap)
+        print('znorm =', self.znorm)
+        print('title =', self.title)
+        print('member = tit')
         self.tit.list()
-        print 'stitle =', self.stitle
-        print 'member = stit'
+        print('stitle =', self.stitle)
+        print('member = stit')
         self.stit.list()
-        print 'member = fixedpoint'
+        print('member = fixedpoint')
         self.fixedpoint.list()
-        print 'member = xaxis'
+        print('member = xaxis')
         self.xaxis.list()
-        print 'member = yaxis'
+        print('member = yaxis')
         self.yaxis.list()
-        print 'member = altxaxis'
+        print('member = altxaxis')
         self.altxaxis.list()
-        print 'member = altyaxis'
+        print('member = altyaxis')
         self.altyaxis.list()
-        print 'member = legend'
+        print('member = legend')
         self.legend.list()
-        print 'member = frame'
+        print('member = frame')
         self.frame.list()
-    __slots__ = ['vxmin', 'vxmax', 'vymin', 'vymax', 'status', 'hidden',
-                 'type', 'stacked', 'stack_world', 'bar_hgap', 'znorm',
-                 'title', 'stitle', 'stit', 'tit', 'fixedpoint',
-                 'xaxis', 'yaxis', 'altxaxis', 'altyaxis',
-                 'legend', 'frame', 'xmin', 'xmax', 'ymin', 'ymax',
-                 'nset', 'Set',
-                 '_vxmin', '_vxmax', '_vymin', '_vymax', '_status', '_hidden',
-                 '_type', '_stacked', '_stack_world', '_bar_hgap', '_znorm',
-                 '_title', '_stitle', '_nset',
-                 '_xmin', '_xmax', '_ymin', '_ymax']
 
     def _getnset(self):
         return self._nset
@@ -1488,25 +1395,17 @@ class DSET(object):
                 self.skip = 0
 
             def list(self):
-                print '\t type =', self.type
-                print '\t size =', self.size
-                print '\t color =', self.color
-                print '\t pattern =', self.pattern
-                print '\t fcolor =', self.fcolor
-                print '\t fpattern =', self.fpattern
-                print '\t linestyle =', self.linestyle
-                print '\t linewidth =', self.linewidth
-                print '\t char =', self.char
-                print '\t char_font =', self.char_font
-                print '\t skip =', self.skip
-
-            __slots__ = ['type', 'size', 'color', 'pattern', 'fcolor',
-                         'parent',
-                         'fpattern', 'linestyle', 'linewidth', 'char',
-                         'char_font', 'skip',
-                         '_type', '_size', '_color', '_pattern', '_fcolor',
-                         '_fpattern', '_linestyle', '_linewidth', '_char',
-                         '_char_font', '_skip']
+                print('\t type =', self.type)
+                print('\t size =', self.size)
+                print('\t color =', self.color)
+                print('\t pattern =', self.pattern)
+                print('\t fcolor =', self.fcolor)
+                print('\t fpattern =', self.fpattern)
+                print('\t linestyle =', self.linestyle)
+                print('\t linewidth =', self.linewidth)
+                print('\t char =', self.char)
+                print('\t char_font =', self.char_font)
+                print('\t skip =', self.skip)
 
             def _gettype(self):
                 return self._type
@@ -1608,15 +1507,11 @@ class DSET(object):
                 self.pattern = parent.pattern
 
             def list(self):
-                print '\t type =', self.type
-                print '\t linestyle =', self.linestyle
-                print '\t linewidth =', self.linewidth
-                print '\t color =', self.color
-                print '\t pattern =', self.pattern
-            __slots__ = ['type', 'color', 'pattern',
-                         'linestyle', 'linewidth', 'parent',
-                         '_type', '_color', '_pattern',
-                         '_linestyle', '_linewidth']
+                print('\t type =', self.type)
+                print('\t linestyle =', self.linestyle)
+                print('\t linewidth =', self.linewidth)
+                print('\t color =', self.color)
+                print('\t pattern =', self.pattern)
 
             def _gettype(self):
                 return self._type
@@ -1664,14 +1559,12 @@ class DSET(object):
         class Baseline(object):
 
             def list(self):
-                print '\t type =', self.type
-                print '\t status =', self.status
+                print('\t type =', self.type)
+                print('\t status =', self.status)
 
             def __init__(self):
                 self.type = 0
                 self.status = 'off'
-
-            __slots__ = ['type', 'status', '_type', '_status']
 
             def _getstatus(self):
                 return self._status
@@ -1701,13 +1594,10 @@ class DSET(object):
                 self.pattern = parent.pattern
 
             def list(self):
-                print '\t type =', self.type
-                print '\t rule =', self.rule
-                print '\t color =', self.color
-                print '\t pattern =', self.pattern
-            __slots__ = ['type', 'rule', 'color', 'pattern', 'parent',
-                         '_type', '_rule', '_color', '_pattern']
-
+                print('\t type =', self.type)
+                print('\t rule =', self.rule)
+                print('\t color =', self.color)
+                print('\t pattern =', self.pattern)
             def _gettype(self):
                 return self._type
 
@@ -1759,26 +1649,18 @@ class DSET(object):
                 self.yoffset = 0.
 
             def list(self):
-                print '\t status =', self.status
-                print '\t type =', self.type
-                print '\t char_size =', self.char_size
-                print '\t font =', self.font
-                print '\t color =', self.color
-                print '\t rot =', self.rot
-                print '\t format =', self.format
-                print '\t prec =', self.prec
-                print '\t prepend =', self.prepend
-                print '\t append =', self.append
-                print '\t xoffset =', self.xoffset
-                print '\t yoffset =', self.yoffset
-            __slots__ = ['status', 'type', 'char_size', 'font',
-                         'color', 'rot', 'format', 'parent',
-                         'prec', 'prepend', 'append', 'offset',
-                         'xoffset', 'yoffset',
-                         '_status', '_type', '_char_size', '_font',
-                         '_color', '_rot', '_format',
-                         '_prec', '_prepend', '_append', '_offset',
-                         '_xoffset', '_yoffset']
+                print('\t status =', self.status)
+                print('\t type =', self.type)
+                print('\t char_size =', self.char_size)
+                print('\t font =', self.font)
+                print('\t color =', self.color)
+                print('\t rot =', self.rot)
+                print('\t format =', self.format)
+                print('\t prec =', self.prec)
+                print('\t prepend =', self.prepend)
+                print('\t append =', self.append)
+                print('\t xoffset =', self.xoffset)
+                print('\t yoffset =', self.yoffset)
 
             def _getstatus(self):
                 return self._status
@@ -1907,10 +1789,8 @@ class DSET(object):
                                 self.length = .1
 
                             def list(self):
-                                print '\t\t\t status =', self.status
-                                print '\t\t\t length =', self.length
-                            __slots__ = [
-                                'status', 'length', '_status', '_length']
+                                print('\t\t\t status =', self.status)
+                                print('\t\t\t length =', self.length)
 
                             def _getstatus(self):
                                 return self._status
@@ -1931,16 +1811,10 @@ class DSET(object):
                         self.clip = Clip()
 
                     def list(self):
-                        print '\t\t linestyle =', self.linestyle
-                        print '\t\t linewidth =', self.linewidth
-                        print '\t\t member = clip'
+                        print('\t\t linestyle =', self.linestyle)
+                        print('\t\t linewidth =', self.linewidth)
+                        print('\t\t member = clip')
                         self.clip.list()
-                    __slots__ = [
-                        'linestyle',
-                        'linewidth',
-                        'clip',
-                        '_linestyle',
-                        '_linewidth']
 
                     def _getlinestyle(self):
                         return self._linestyle
@@ -1963,19 +1837,15 @@ class DSET(object):
                 self.riser = Riser(parent)
 
             def list(self):
-                print '\t status =', self.status
-                print '\t place =', self.place
-                print '\t size =', self.size
-                print '\t linestyle =', self.linestyle
-                print '\t linewidth =', self.linewidth
-                print '\t color =', self.linewidth
-                print '\t pattern =', self.pattern
-                print '\t member = riser'
+                print('\t status =', self.status)
+                print('\t place =', self.place)
+                print('\t size =', self.size)
+                print('\t linestyle =', self.linestyle)
+                print('\t linewidth =', self.linewidth)
+                print('\t color =', self.linewidth)
+                print('\t pattern =', self.pattern)
+                print('\t member = riser')
                 self.riser.list()
-            __slots__ = ['status', 'place', 'size', 'linestyle', 'linewidth',
-                         'riser', 'color', 'pattern', 'parent',
-                         '_status', '_place', '_size', '_linestyle',
-                         '_linewidth', '_riser', '_color', '_pattern']
 
             def _getlinestyle(self):
                 return self._linestyle
@@ -2039,28 +1909,24 @@ class DSET(object):
     # end of __init__
 
     def list(self):
-        print 'graph =', self.graph
-        print 'hidden =', self.hidden
-        print 'type =', self.type
-        print 'member = symbol'
+        print('graph =', self.graph)
+        print('hidden =', self.hidden)
+        print('type =', self.type)
+        print('member = symbol')
         self.symbol.list()
-        print 'member = line'
+        print('member = line')
         self.line.list()
-        print 'dropline =', self.dropline
-        print 'member = baseline'
+        print('dropline =', self.dropline)
+        print('member = baseline')
         self.baseline.list()
-        print 'member = fill'
+        print('member = fill')
         self.fill.list()
-        print 'member = avalue'
+        print('member = avalue')
         self.avalue.list()
-        print 'member = errorbar'
+        print('member = errorbar')
         self.errorbar.list()
-        print 'comment =', self.comment
-        print 'legend =', self.legend
-    __slots__ = ['graph', 'hidden', 'type', 'dropline', 'comment', 'legend',
-                 'symbol', 'line', 'baseline', 'fill', 'avalue', 'errorbar',
-                 'id', 'parent', '_graph', '_hidden', '_type', '_dropline',
-                 '_comment', '_legend']
+        print('comment =', self.comment)
+        print('legend =', self.legend)
 
     def _getgraph(self):
         return self._graph
@@ -2126,21 +1992,17 @@ class STRING(object):
         self.graph = graph
 
     def list(self):
-        print 'status =', self.status
-        print 'loctype =', self.loctype
-        print 'graph =', self.graph
-        print 'color =', self.color
-        print 'rot =', self.rot
-        print 'x =', self.x
-        print 'y =', self.y
-        print 'font =', self.font
-        print 'just =', self.just
-        print 'char_size =', self.char_size
-        print 'text =', self.text
-    __slots__ = ['status', 'loctype', 'color', 'font', 'just', 'rot',
-                 'x', 'y', 'xy', 'char_size', 'text', 'parent', 'graph',
-                 '_status', '_loctype', '_color', '_font', '_just', '_rot',
-                 '_x', '_y', '_xy', '_char_size', '_text']
+        print('status =', self.status)
+        print('loctype =', self.loctype)
+        print('graph =', self.graph)
+        print('color =', self.color)
+        print('rot =', self.rot)
+        print('x =', self.x)
+        print('y =', self.y)
+        print('font =', self.font)
+        print('just =', self.just)
+        print('char_size =', self.char_size)
+        print('text =', self.text)
 
     def _getstatus(self):
         return self._status
@@ -2244,12 +2106,10 @@ class LINE(object):
                 self.layout = alyo
 
             def list(self):
-                print '\t position =', self.position
-                print '\t type =', self.type
-                print '\t length =', self.length
-                print '\t layout =', self.layout
-            __slots__ = ['position', 'type', 'length', 'layout',
-                         '_position', '_type', '_length', '_layout']
+                print('\t position =', self.position)
+                print('\t type =', self.type)
+                print('\t length =', self.length)
+                print('\t layout =', self.layout)
 
             def _gettype(self):
                 return self._type
@@ -2290,23 +2150,18 @@ class LINE(object):
         self.y2 = y2
 
     def list(self):
-        print 'status =', self.status
-        print 'loctype =', self.loctype
-        print 'graph =', self.graph
-        print 'color =', self.color
-        print 'linewidth =', self.linewidth
-        print 'linestyle =', self.linestyle
-        print 'member = arrow'
+        print('status =', self.status)
+        print('loctype =', self.loctype)
+        print('graph =', self.graph)
+        print('color =', self.color)
+        print('linewidth =', self.linewidth)
+        print('linestyle =', self.linestyle)
+        print('member = arrow')
         self.arrow.list()
-        print 'x1 =', self.x1
-        print 'x2 =', self.x2
-        print 'y1 =', self.y1
-        print 'y2 =', self.y2
-    __slots__ = ['status', 'loctype', 'color', 'linewidth', 'linestyle',
-                 'x1', 'x2', 'y1', 'y2', 'coord', 'parent',
-                 'arrow', 'graph',
-                 '_status', '_loctype', '_color', '_linewidth', '_linestyle',
-                 '_x1', '_x2', '_y1', '_y2', '_coord']
+        print('x1 =', self.x1)
+        print('x2 =', self.x2)
+        print('y1 =', self.y1)
+        print('y2 =', self.y2)
 
     def _getlinestyle(self):
         return self._linestyle
@@ -2390,10 +2245,8 @@ class FILL(object):
         self.pattern = fillpattern
 
     def list(self):
-        print '\t pattern =', self.pattern
-        print '\t color =', self.color
-
-    __slots__ = ['_color', '_pattern', 'parent', 'color', 'pattern']
+        print('\t pattern =', self.pattern)
+        print('\t color =', self.color)
 
     def _getcolor(self):
         return self._color
@@ -2429,22 +2282,18 @@ class BOX_ELLIPSE(object):
         self.y2 = y2
 
     def list(self):
-        print 'status =', self.status
-        print 'loctype =', self.loctype
-        print 'graph =', self.graph
-        print 'color =', self.color
-        print 'linewidth =', self.linewidth
-        print 'linestyle =', self.linestyle
-        print 'member = fill'
+        print('status =', self.status)
+        print('loctype =', self.loctype)
+        print('graph =', self.graph)
+        print('color =', self.color)
+        print('linewidth =', self.linewidth)
+        print('linestyle =', self.linestyle)
+        print('member = fill')
         self.fill.list()
-        print 'x1 =', self.x1
-        print 'x2 =', self.x2
-        print 'y1 =', self.y1
-        print 'y2 =', self.y2
-    __slots__ = ['status', 'loctype', 'color', 'linewidth', 'linestyle',
-                 'x1', 'x2', 'y1', 'y2', 'coord', 'fill', 'parent', 'graph',
-                 '_status', '_loctype', '_color', '_linewidth', '_linestyle',
-                 '_x1', '_x2', '_y1', '_y2']
+        print('x1 =', self.x1)
+        print('x2 =', self.x2)
+        print('y1 =', self.y1)
+        print('y2 =', self.y2)
 
     def _getlinestyle(self):
         return self._linestyle
@@ -2572,14 +2421,11 @@ class init(object):
                 self.background_fill = 'on'
 
             def list(self):
-                print '\t x =', self.x
-                print '\t y =', self.y
-                print '\t scroll =', self.scroll
-                print '\t inout =', self.inout
-                print '\t background_fill =', self.background_fill
-
-            __slots__ = ['x', 'y', 'scroll', 'inout', 'background_fill',
-                         '_x', '_y', '_scroll', '_inout', '_background_fill']
+                print('\t x =', self.x)
+                print('\t y =', self.y)
+                print('\t scroll =', self.scroll)
+                print('\t inout =', self.inout)
+                print('\t background_fill =', self.background_fill)
 
             def _getx(self):
                 return self._x
@@ -2636,9 +2482,8 @@ class init(object):
                         self.year = 1950
 
                     def list(self):
-                        print '\t\t status =', self.status
-                        print '\t\t year =', self.year
-                    __slots__ = ['status', 'year', '_status', '_year']
+                        print('\t\t status =', self.status)
+                        print('\t\t year =', self.year)
 
                     def _getstatus(self):
                         return self._status
@@ -2658,10 +2503,9 @@ class init(object):
                 self.wrap = Wrap()
 
             def list(self):
-                print '\t reference =', self.reference
-                print '\t member = wrap'
+                print('\t reference =', self.reference)
+                print('\t member = wrap')
                 self.wrap.list()
-            __slots__ = ['reference', 'wrap', '_reference']
 
             def _getreference(self):
                 return self._reference
@@ -2721,18 +2565,14 @@ class init(object):
                 self.default = '"' + time.ctime() + '"'
 
             def list(self):
-                print '\t status =', self.status
-                print '\t x =', self.x
-                print '\t y =', self.y
-                print '\t color =', self.color
-                print '\t rot =', self.rot
-                print '\t font =', self.font
-                print '\t char_size =', self.char_size
-                print '\t default =', self.default
-            __slots__ = ['status', 'x', 'y', 'xy', 'color', 'rot',
-                         'font', 'char_size', 'default', 'parent',
-                         '_status', '_x', '_y', '_color', '_rot',
-                         '_font', '_char_size', '_default']
+                print('\t status =', self.status)
+                print('\t x =', self.x)
+                print('\t y =', self.y)
+                print('\t color =', self.color)
+                print('\t rot =', self.rot)
+                print('\t font =', self.font)
+                print('\t char_size =', self.char_size)
+                print('\t default =', self.default)
 
             def _getstatus(self):
                 return self._status
@@ -2865,7 +2705,7 @@ class init(object):
                             if minor_xtra < 8:
                                 nosafe = 0
             except Exception as err:
-                print 'Error trying to identify version\nerror:', err
+                print('Error trying to identify version\nerror:', err)
                 pass
 
         cmd = ('-noask',) + cmd
@@ -3089,7 +2929,7 @@ class init(object):
     def whichsets(self, *args):
         og = []
         if len(args) == 0:
-            args = range(len(self.Graph))
+            args = list(range(len(self.Graph)))
         for ig in args:
             og.append([])
             for iset in range(len(self.Set)):
@@ -3761,14 +3601,14 @@ class init(object):
                         mydic = t.spec.values
                         t.spec.loc = []
                         t.spec.values = []
-                        for ky in mydic.keys():
+                        for ky in list(mydic.keys()):
                             t.spec.loc.append(ky)
                             t.spec.values.append(mydic[ky])
                     if isinstance(t.spec.loc, type({})):
                         mydic = t.spec.loc
                         t.spec.loc = []
                         t.spec.values = []
-                        for ky in mydic.keys():
+                        for ky in list(mydic.keys()):
                             t.spec.loc.append(ky)
                             t.spec.values.append(mydic[ky])
                     t.type = 'spec'
@@ -3915,7 +3755,7 @@ class init(object):
                         self.add_set(iG)
                     else:
                         iS = 0
-            for i in xrange(len(x)):
+            for i in range(len(x)):
                 if ((y.mask is None) or (y.mask is MV2.nomask)):
                     lister.append('G' +
                                   str(iG) +
@@ -4163,15 +4003,15 @@ class init(object):
                 self(close_cmd)
             # except Disconnected:
             except:
-                print 'XMGRACE has probably been closed manually, pipe broken'
+                print('XMGRACE has probably been closed manually, pipe broken')
                 # Looks like grace has already disconnected.
                 # pass
             else:
                 if close_cmd == 'close':
-                    print 'XMGRACE pipe now closed\nPython object is deleted\n' +\
-                          'but XMGRACE hasn''t been closed'
+                    print('XMGRACE pipe now closed\nPython object is deleted\n' +\
+                          'but XMGRACE hasn''t been closed')
                 else:
-                    print 'XMGRACE Object deleted, application terminated'
+                    print('XMGRACE Object deleted, application terminated')
                 # Close our end of the pipe (actually, it should be closed
                 # automatically when it's deleted, but...):
                 self.pipe.close()
@@ -4195,8 +4035,8 @@ class init(object):
                 self('exit')  # this also flushes the queue
             except:
                 if 1:
-                    print 'XMGRACE has probably been closed manually before,' +\
-                          'pipe broken'
+                    print('XMGRACE has probably been closed manually before,' +\
+                          'pipe broken')
                 # Looks like grace has already disconnected.
                 # pass
                 # self.pipe will have been closed by whomever
@@ -4301,64 +4141,47 @@ class init(object):
             str(S1))
 
     def list(self):
-        print 'XMGRACE version =', self.version
-        print 'Python Module Version =', self.pyversion
-        print 'member = page'
+        print('XMGRACE version =', self.version)
+        print('Python Module Version =', self.pyversion)
+        print('member = page')
         self.page.list()
-        print 'member = date'
+        print('member = date')
         self.date.list()
-        print 'member = timestamp'
+        print('member = timestamp')
         self.timestamp.list()
-        print 'title =', self.title
-        print 'stitle =', self.stitle
+        print('title =', self.title)
+        print('stitle =', self.stitle)
         for i in range(self.ngraph):
-            print 'member = Graph[' + str(i) + ']'
+            print('member = Graph[' + str(i) + ']')
             self.Graph[i].list()
         for i in range(self.nset):
-            print 'member = Set[' + str(i) + ']'
+            print('member = Set[' + str(i) + ']')
             self.Set[i].list()
         for i in range(self.nstring):
-            print 'member = String[' + str(i) + ']'
+            print('member = String[' + str(i) + ']')
             self.String[i].list()
         for i in range(self.nline):
-            print 'member = Line[' + str(i) + ']'
+            print('member = Line[' + str(i) + ']')
             self.Line[i].list()
         for i in range(self.nbox):
-            print 'member = Box[' + str(i) + ']'
+            print('member = Box[' + str(i) + ']')
             self.Box[i].list()
         for i in range(self.nellipse):
-            print 'member = Ellipse[' + str(i) + ']'
+            print('member = Ellipse[' + str(i) + ']')
             self.Ellipse[i].list()
-        print 'link_page =', self.link_page
-        print 'linewidth =', self.linewidth
-        print 'linestyle =', self.linestyle
-        print 'color =', self.color
-        print 'pattern =', self.pattern
-        print 'font =', self.font
-        print 'char_size =', self.char_size
-        print 'symbol_size =', self.symbol_size
-        print 'sformat =', self.sformat
-        print 'background_color =', self.background_color
+        print('link_page =', self.link_page)
+        print('linewidth =', self.linewidth)
+        print('linestyle =', self.linestyle)
+        print('color =', self.color)
+        print('pattern =', self.pattern)
+        print('font =', self.font)
+        print('char_size =', self.char_size)
+        print('symbol_size =', self.symbol_size)
+        print('sformat =', self.sformat)
+        print('background_color =', self.background_color)
         for i in range(self.nr):
-            print 'member = R[' + str(i) + ']'
+            print('member = R[' + str(i) + ']')
             self.R[i].list()
-
-    __slots__ = ['title', 'stitle', 'link_page', 'linewidth', 'linestyle',
-                 'color',
-                 'pattern', 'font', 'char_size', 'symbol_size', 'sformat',
-                 'background_color',
-                 'nset', 'ngraph', 'nline', 'nbox', 'nr', 'nellipse',
-                 'pid', 'ininit', 'parent',
-                 'Box', 'String', 'R', 'Ellipse', 'page', 'date',
-                 'Graph', 'Set', 'Line', 'pyversion',
-                 'Font', 'nfont', 'Color', 'ncolor', 'nstring',
-                 'timestamp', 'pipe', 'version',
-                 '_title', '_stitle', '_link_page', '_linewidth',
-                 '_linestyle', '_color',
-                 '_pattern', '_font', '_char_size', '_symbol_size', '_sformat',
-                 '_background_color', '_version', '_pyversion', '_nset',
-                 'pipe_file', 'new_pipe', 'fd_r', '_all_string',
-                 ]
 
     def _getversion(self):
         return self._version

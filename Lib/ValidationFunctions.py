@@ -56,7 +56,7 @@ def checkInStringsListInt(self, name, value, values):
             i = i + 1
     elif isinstance(value, int) or \
             (isinstance(value, float) and int(value) == value):
-        if value not in range(len(values)):
+        if value not in list(range(len(values))):
             raise ValueError(err)
         else:
             return int(value)
@@ -66,7 +66,7 @@ def checkInStringsListInt(self, name, value, values):
 
 def isNumber(value):
     if isinstance(value, int) or isinstance(
-            value, long) or isinstance(value, float):
+            value, int) or isinstance(value, float):
         return 1
     return 0
 
@@ -74,7 +74,7 @@ def isNumber(value):
 def checkPositiveInt(self, name, value):
     if not isNumber(value):
         raise ValueError(name + ' must be an integer')
-    elif (not (isinstance(value, int) or isinstance(value, long)) and
+    elif (not (isinstance(value, int) or isinstance(value, int)) and
             (not int(value) == value)):
         raise ValueError(name + ' must be an integer')
     elif value < 0:
@@ -84,7 +84,7 @@ def checkPositiveInt(self, name, value):
 
 def checkPositiveNumber(self, name, value):
     if not (isinstance(value, int) or isinstance(
-            value, long) or isinstance(value, float)):
+            value, int) or isinstance(value, float)):
         raise ValueError(name + ' must be an integer or a float')
     elif value < 0:
         raise ValueError(name + ' must be positve')
@@ -227,7 +227,7 @@ def checkTickLocation(self, name, value):
     elif isListorTuple(value):
         val = value
     else:
-        val = value.keys()
+        val = list(value.keys())
     # Now checks that the location are actually numbers
     for v in val:
         if not isNumber(v):
@@ -257,7 +257,7 @@ def checkTickValues(self, name, value):
     elif isListorTuple(value):
         val = []
     else:
-        val = value.keys()
+        val = list(value.keys())
     # Now checks that the location are actually numbers
     for v in val:
         if not isNumber(v):
@@ -266,7 +266,7 @@ def checkTickValues(self, name, value):
     if isinstance(value, dict):
         self.loc = val
         vals = []
-        for v in value.keys():
+        for v in list(value.keys()):
             vals.append(value[v])
         value = vals
     val = []
@@ -410,7 +410,7 @@ def checkChar(self, name, value):
             raise ValueError(name + " must be a single character")
         return ord(value.strip())
     elif isinstance(value, int):
-        if value not in range(256):
+        if value not in list(range(256)):
             raise ValueError(name + ' not in range(256)')
         return value
     else:

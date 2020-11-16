@@ -5,9 +5,6 @@ import xmgrace
 import sys
 import time
 
-print 'Test disabled'
-sys.exit()
-
 # x=xmgrace.xmgrace.init()
 # x=xmgrace.xmgrace.init(pipe_file='tmp.txt',new_pipe=True,clean_on_exit=False)
 # y=xmgrace.xmgrace.init(pipe_file='tmp.txt',new_pipe=False,clean_on_exit=False)
@@ -24,7 +21,7 @@ x.Graph[0].ymin = -1.
 x.plot(a, G=0, S=0)
 time.sleep(2)
 b = numpy.sin(a)
-print b
+print(b)
 y.Graph[0].xmax = end / inc
 y.Graph[0].ymin = -1.
 y.plot(b, G=0, S=1)

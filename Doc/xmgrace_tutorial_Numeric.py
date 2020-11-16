@@ -4,7 +4,7 @@ import numpy
 
 # it is recomended to run it usibng parser.py or just read it
 
-print 'it is recomended to run this file using parser.py or just read it'
+print('it is recomended to run this file using parser.py or just read it')
 
 TEMPDIR = './'
 
